@@ -15,8 +15,9 @@ B = [200; 0; 0; 0; 0; 0];
 initialGuess = [0; 0; 0; 0; 0; 0;];
 maxIterations = 1000;
 errorLevel = 0.0001;
+relaxation = 0.8;
 
-solution = GaussSeidel(A, B, initialGuess, maxIterations, errorLevel);
+solution = GaussSeidel(A, B, initialGuess, maxIterations, errorLevel, relaxation);
 
 % display the solution
 disp("Solution Vector (Gauss-Seidel):");

@@ -22,20 +22,25 @@ function [solutionVector] = GaussSeidel( ...
     solutionVector = zeros(N,1);
     errorVector = zeros(N,1);
     
-    % initial guess vector    
+    % initial guess vector
     for j=1:maxIterations
         for i=1:N
-            solutionVector(i) = (B(i)/A(i,i)) - (A(i,[1:i-1, i+1:N])*P([1:i-1,i+1:N]))/A(i,i);
+            solutionVector(i) = ...
+                ((B(i)-(A(i,[1:i-1, i+1:N])*P([1:i-1,i+1:N])))/A(i,i)) * relaxation ...
+                + (1 - relaxation) * solutionVector(i) ...
+            ;
             
             % this accounts for the case when P(i) = 0
             if solutionVector(i) == P(i)
                 errorVector(i) = 0;
             else
-                errorVector(i) = (solutionVector(i) - P(i)) / solutionVector(i);
+                errorVector(i) = abs(solutionVector(i) - P(i)) / solutionVector(i);
             end
             P(i) = solutionVector(i);
         end
         if max(errorVector) < errorLevel
+            disp("Iteration: ")
+            disp(j)
             return
         end
     end

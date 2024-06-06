@@ -3,7 +3,7 @@ A = [
     1 0 0 0 0;
     -1 1 0 0 0;
     1/15 1/5 -11/30 1/10 0;
-    1/25 0 1/10 0.19 1/20;
+    1/25 0 1/10 -0.19 1/20;
     -1 0 0 0 1;
 ];
 
@@ -11,11 +11,12 @@ A = [
 B = [0; 80; 0; 0; 50;];
 
 % define parameters
-initialGuess = [-100;-100;-100;-100;-100;];
+initialGuess = [0; 0; 0; 0; 0;];
 maxIterations = 1000;
-errorLevel = 0.0000001;
+errorLevel = 0.0001;
+relaxation = 1;
 
-solution = GaussSeidel(A, B, initialGuess, maxIterations, errorLevel);
+solution = GaussSeidel(A, B, initialGuess, maxIterations, errorLevel, relaxation);
 
 % display the solution
 disp("Solution Vector (Gauss-Seidel):");
